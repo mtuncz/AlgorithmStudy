@@ -1,0 +1,42 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class FibonacciLastDigit {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        int n = in.nextInt();
+
+        System.out.println(fibLastDigit(n));
+
+
+    }
+
+    public static int fibLastDigit(int n){
+        if(n <= 1){
+            return n;
+        }
+
+        int prev = 0;
+        int curr = 1;
+
+        int res = prev + curr;
+
+        while(n-- > 1){
+            res = (prev+curr) % 10 ;
+            prev = curr;
+            curr = res;
+        }
+
+        return res;
+
+    }
+}
+
+/* 
+since fibonacci numbers get bigger and bigger, they will not be able to fit into standard data types.
+For this reason, instead of storing the number itself, 
+the above program stores the last digit of the number. 
+This way, numbers are just the digits, (the number % 10) and they will fit perfectly into any standard integer type. 
+*/ 
+
