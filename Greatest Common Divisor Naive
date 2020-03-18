@@ -1,0 +1,17 @@
+public class GreatestCommonDivisor {
+    public static void main(String[] args) {
+        gcd(18,35);
+    }
+
+    public static void gcd(int a, int b){
+        int best = 0;
+        int sum = a+b;
+        for(int d = 1; d <= sum; d++){
+            if((a % d == 0) && (b % d == 0)){
+                best = d;
+            }
+        }
+
+        System.out.println(best);
+    }
+}
