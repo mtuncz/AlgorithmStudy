@@ -1,0 +1,17 @@
+public class GreatestCommonDivisor {
+    public static void main(String[] args) {
+        //gcd(3918848,1653264);
+        System.out.println(EuGcd(18, 35));
+    }
+    
+    public static int EuGcd(int a, int b){
+        if( b == 0){
+            return a;
+        }
+
+        int aPrime = a % b;
+
+        return EuGcd(b, aPrime);
+    }
+}
+
