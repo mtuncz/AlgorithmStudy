@@ -1,0 +1,39 @@
+import java.util.*;
+
+public class LastDigitSumOfFib {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        long a = sc.nextLong();
+        System.out.println(sumOfLast(a));
+
+    }
+
+    public static long sumOfLast(long n){
+        if(n < 1){
+            return 0;
+        }
+
+        if(n <= 1){
+            return n;
+        }
+
+        // pisano period of 10 is 60
+
+        int rem = (int) (n % 60) + 2; // to get the correct index
+
+        ArrayList<Integer> fib = new ArrayList<>();
+        fib.add(0);
+        fib.add(1);
+        int i;
+        for(i = 2; i <= rem; i++){
+            fib.add((fib.get(i-1) + fib.get(i-2)) % 10);
+        }
+
+        if(fib.get(rem) == 0){
+            return 9;
+        }
+
+        return fib.get(rem) - 1;
+
+    }
+}
