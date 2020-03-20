@@ -1,0 +1,48 @@
+import java.util.*;
+
+public class LastDigitOfPartialSum {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        long from = sc.nextLong();
+        long to = sc.nextLong();
+        System.out.println(sumOfLast(from, to));
+
+
+    }
+
+    public static long sumOfLast(long m, long n){
+        if(n <= 1){
+            return n;
+        }
+
+        //pisano period of 100 is 60
+        int rem1 = (int) (m % 60);
+        int rem2 = (int) (n % 60);
+
+        //System.out.println("rem1 is: " + rem1 + " rem2 is: " + rem2);
+        ArrayList<Integer> fib = new ArrayList<>();
+        fib.add(0);
+        fib.add(1);
+
+        for(int i = 2; i <= Math.max(rem1, rem2) + 2; i++){
+            fib.add( (fib.get(i-1) + fib.get(i-2)) % 10);
+        }
+
+        int res1 = fib.get(rem1 + 1);
+        int res2 = fib.get(rem2 + 2);
+        //System.out.println("res1 is : " + res1 + " res2 is " + res2);
+
+        //System.out.println(fib.toString());
+
+        if(res2 >= res1){
+            return res2 - res1;
+        } else {
+            return 10 + res2 - res1;
+        }
+
+
+
+    }
+
+
+}
