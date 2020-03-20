@@ -1,0 +1,26 @@
+import java.util.Scanner;
+
+public class LeastCommonMultiple {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        
+        System.out.println(lcm(a,b));
+        
+    }
+
+    public static int lcm(int a, int b){
+        int lcd = 1;
+        for(lcd = 1; ; lcd++){
+            if(lcd % a == 0 && lcd % b == 0){
+                return lcd;
+            }
+        }
+    }
+}
+
+/* 
+* slow working algorithm 
+*/ 
+
