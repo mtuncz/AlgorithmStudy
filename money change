@@ -1,0 +1,28 @@
+/* the goal is to find the minimum number of coins needed to change the 
+the input value (an integer) into coins with denominations of 1, 5, and 10. 
+*/ 
+
+
+
+import java.util.Scanner;
+
+public class MoneyChange {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int test = sc.nextInt();
+        System.out.println(change(test));
+    }
+
+    public static int change(int m){
+
+        int tens = m / 10;
+        int rem = m - (tens * 10);
+        int fives = rem / 5;
+        rem = rem - (fives * 5);
+
+        System.out.println("Give " + tens + " - > 10 cents");
+        System.out.println("Give " + fives+ " - > 5 cents");
+        System.out.println("Give " + rem + " - > 1 cents");
+        return (tens + fives + rem);
+    }
+}
