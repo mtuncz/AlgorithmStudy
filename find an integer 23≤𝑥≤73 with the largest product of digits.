@@ -1,0 +1,47 @@
+import java.util.ArrayList;
+import java.util.HashSet;
+
+public class LargestProductOfDigits {
+    public static void main(String[] args) {
+        System.out.println(max(23,73));
+    }
+
+    public static int max(int a, int b){
+        ArrayList<Integer> firsts = new ArrayList<>();
+        ArrayList<Integer> seconds = new ArrayList<>();
+
+        for(int i = a; i <= b; i++){
+            int curr = i / 10;
+            if(!firsts.contains(curr)) {
+                firsts.add(curr);
+            }
+            if(!seconds.contains(i%10)) {
+                seconds.add(i % 10);
+            }
+        }
+
+        int maxDigitNumber = 0;
+        int maxDigitProduct = 0;
+
+        for(int i = 0; i < firsts.size(); i++){
+            for(int j = 0; j < seconds.size(); j++){
+                int curr = (firsts.get(i) * 10) + seconds.get(j);
+                if(curr >= a && curr <= b){
+                    if(firsts.get(i)  * seconds.get(j) > maxDigitProduct){
+                        maxDigitProduct = firsts.get(i) * seconds.get(j);
+                        maxDigitNumber = curr;
+                    }
+                }
+            }
+        }
+
+
+
+
+//        System.out.println(firsts.toString());
+//        System.out.println(seconds.toString());
+
+        return maxDigitNumber;
+
+    }
+}
