@@ -1,3 +1,6 @@
+// ??? i find different answers when compare the results of this with another algo 
+
+
 import java.util.Arrays;
 
 public class MinWaiting {
