@@ -1,0 +1,24 @@
+import java.util.Arrays;
+
+public class MinWaiting {
+    public static void main(String[] args) {
+        int[] arr = {10,15,20};
+        
+
+        System.out.println(waitTime(arr, 3));
+    }
+
+   
+
+    public static int waitTime(int[] t, int n){
+        int maxWaitingTime = 0;
+        Arrays.sort(t);
+
+        for(int i = 1; i < n; i++){
+            int tmin = t[i-1];
+            maxWaitingTime = maxWaitingTime + (n-i) * tmin;
+        }
+
+        return maxWaitingTime;
+    }
+}
