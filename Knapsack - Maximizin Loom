@@ -1,0 +1,64 @@
+import javafx.util.Pair;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Map;
+
+public class Knapsack {
+    public static void main(String[] args) {
+        int[] weights = {5,4,3,7,1,3};
+        int[] values = {30,28,24,70,25,3};
+        //knapSack(15,weights, values);
+        Pair<Integer, int[] > p1 = knapSack(15, weights, values);
+        System.out.println(p1.getKey());
+        System.out.println(Arrays.toString(p1.getValue()));
+    }
+
+    // returns the index of the current best item to add to knapsack
+    public static int BestItem(int[] weights, int[] values){
+        int maxValuePerWeight = 0;
+        int bestItem = 0;
+        for(int i = 0; i < weights.length; i++){
+            if(weights[i] > 0){
+                if(values[i] / weights[i] > maxValuePerWeight){
+                    maxValuePerWeight = values[i] / weights[i];
+                    bestItem = i;
+                }
+            }
+        }
+        return bestItem;
+    }
+
+    public static Pair<Integer, int[]> knapSack(int Weight, int[] weights, int[] values){
+        //array of amounts we will take for each item
+        int[] amounts = new int[weights.length];
+        //total value of items in the knapsack
+        int totalValue = 0;
+        //to count the repeats, starting from 0, array first index is 0th index
+        int i = 0;
+        //repeat n items, n is the total number of items
+        while(i< weights.length){
+            System.out.println("i is - > " + i);
+            if(Weight == 0){
+                //System.out.println("Total Value is : " + totalValue + " " + amounts.toString());
+                return new Pair<Integer, int[]>(totalValue, amounts);
+
+                //break;
+            }
+            int bestItem = BestItem(weights, values);
+            int weightToTake = Math.min(weights[bestItem], Weight);
+            System.out.println("bestItem idx - > " + bestItem + " weight - > " + weightToTake);
+            totalValue += weightToTake * (values[bestItem]/weights[bestItem]);
+            weights[bestItem] -= weightToTake;
+            amounts[bestItem] += weightToTake;
+            Weight -= weightToTake;
+            i++;
+        }
+
+        System.out.println("total value is: " + totalValue);
+        System.out.println("Amounts are : " + Arrays.toString(amounts));
+
+        return new Pair<Integer, int[]>(totalValue, amounts);
+    }
+
+}
