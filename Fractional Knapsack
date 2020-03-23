@@ -1,0 +1,36 @@
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class FractionalKnapsack {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int capacity = sc.nextInt();
+        double[][] ratios = new double[n][2];
+        for(int i = 0; i < n; i++){
+            ratios[i][0] = (double) sc.nextInt();
+            ratios[i][1] = (double) sc.nextInt();
+        }
+
+        System.out.println(getOptimalValue(capacity, ratios));
+    }
+
+    public static double getOptimalValue(int capacity, double[][] ratios){
+        double val = 0;
+
+        Comparator<double[]> a = (X, Y) -> X[0] / X[1] > Y[0] / Y[1] ? -1 : 1;
+        Arrays.sort(ratios, a);
+        int i = 0;
+        while(capacity > 0 && i < ratios.length){
+            double w = Math.min(ratios[i][1], capacity);
+            val += w * ratios[i][0] / ratios[i][1];
+            capacity -= (int) w;
+            i++;
+        }
+
+
+        return val;
+    }
+
+}
