@@ -1,0 +1,56 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class CollectingSignatures {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Segment[] segments = new Segment[n];
+        for(int i = 0; i < n; i++){
+            int start, end;
+            start = sc.nextInt();
+            end = sc.nextInt();
+            segments[i] = new Segment(start, end);
+        }
+
+        ArrayList<Integer> points = optimalPoints(segments);
+        System.out.println(points.size());
+        for(int point : points){
+            System.out.print(point + " ");
+        }
+    }
+
+    public static ArrayList<Integer> optimalPoints(Segment[] segments){
+        Comparator<Segment> a = (X,Y)  -> X.end > Y.end ? 1 : -1;
+        Arrays.sort(segments,a);
+
+        ArrayList<Integer> points = new ArrayList<>();
+        int point = segments[0].end;
+        points.add(point);
+
+        for(int i = 1; i < segments.length; i++){
+            if(point < segments[i].start){
+                point = segments[i].end;
+                points.add(point);
+            }
+        }
+
+        return points;
+    }
+    
+    static class Segment{
+        int start, end;
+
+        Segment(int start, int end){
+            this.start = start;
+            this.end = end;
+        }
+
+        @Override
+        public String toString() {
+            return this.start + "<->" + this.end;
+        }
+    }
+}
