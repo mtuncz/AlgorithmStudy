@@ -1,0 +1,53 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class MaximizingSalary {
+    public static void main(String[] args) throws FileNotFoundException {
+        File nf = new File("numbers.txt");
+        Scanner sc = new Scanner(nf);
+        Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
+        String[] a = new String[n];
+        for(int i = 0; i < n; i++){
+            a[i] = sc.next();
+        }
+
+        System.out.println(largest(a));
+
+    }
+
+
+    public static String largest(String[] a){
+
+        for(int i = 0; i < a.length-1; i++){
+            //int ab = Integer.parseInt(a[i] + a[i+1]);
+            for(int j = i+1; j < a.length; j++){
+                int ab = Integer.parseInt(a[i] + a[j]);
+                int ba = Integer.parseInt(a[j] + a[i]);
+
+                if(ab < ba) {
+                    String temp = a[i];
+                    a[i] = a[j];
+                    a[j] = temp;
+                }
+            }
+        }
+
+
+
+        System.out.println("Sorted arr: " + Arrays.toString(a));
+        StringBuilder res = new StringBuilder();
+        for(String anA : a){
+            res.append(anA);
+        }
+
+        return res.toString();
+    }
+
+
+}
