@@ -1,0 +1,31 @@
+public class LinearSearch {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int size = sc.nextInt();
+        int[] testArray = new int[size];
+        for(int i = 0; i < size; i++){
+            testArray[i] = sc.nextInt();
+        }
+        int low = sc.nextInt();
+        int high = testArray.length-1;
+        int lookForItem = sc.nextInt();
+        System.out.println(linearSearch(testArray, low, high, lookForItem));
+
+
+
+    }
+
+
+
+    public static int linearSearch(int[] arr, int low, int high, int key){
+        // low - lower bound of the array in which to search
+        // high - upper bound of the array in which to search
+        if(high < low){
+            return -1;
+        }
+        if(arr[low] == key){
+            return low;
+        }
+        return linearSearch(arr, low+1, high, key);
+    }
+}
