@@ -1,0 +1,29 @@
+public class OctalToDecimal {
+    public static void main(String[] args) {
+        String octal = "17";
+        System.out.println(oToD(octal));
+    }
+
+  
+    public static int convertOctal(String str){
+        int result = 0;
+        for(int i = 1; i <= str.length(); i++){
+            int octDigit = Integer.parseInt(str.charAt(str.length()-i) + "");
+            System.out.println(str.charAt(str.length()-i) + " - > " + octDigit);
+            result += Math.pow(8, i-1) * octDigit;
+        }
+        return result;
+    }
+
+    public static int oToD(String str){
+        int result = 0;
+        for(int i = 0; i < str.length(); i++){
+            char curr = str.charAt(str.length()-i-1);
+            int octDigit = Integer.parseInt(curr + "");
+            result += Math.pow(8, i) * octDigit;
+
+        }
+
+        return result;
+    }
+}
