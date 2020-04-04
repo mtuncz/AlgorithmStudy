@@ -1,0 +1,16 @@
+public static List<Long> primeFactors(long x){
+        ArrayList<Long> result = new ArrayList<>();
+        long factor = 2;
+
+        while(x > 1){
+
+            if(x % factor == 0){
+                result.add(factor);
+                x /= factor;
+            } else {
+                factor++;
+            }
+        }
+       
+        return result;
+    }
