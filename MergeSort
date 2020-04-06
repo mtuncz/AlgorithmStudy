@@ -1,0 +1,49 @@
+import java.util.Arrays;
+
+public class MergeSort {
+    public static void main(String[] args) {
+        int[] arr = {7,4,5,6,1,654,3,1,4,9,3,24402,4,3,4,21};
+        sort(arr);
+        System.out.println(Arrays.toString(arr));
+
+    }
+
+
+    public static void sort(int[] arr){
+        sort(arr, 0, arr.length-1);
+    }
+
+    public static void sort(int[] arr, int low, int high){
+        if(low < high){
+            int mid = (high-low)/2 + low;
+            sort(arr,low, mid);
+            sort(arr, mid+1, high);
+            merge(arr, low, mid, high);
+        }
+    }
+
+    public static void merge(int[] arr, int low, int mid, int high){
+        int i = low;
+        int j = mid+1;
+        int[] tempArray = new int[high-low+1];
+        int k = 0;
+        for(k = 0; k < tempArray.length; k++){
+            if(i <= mid && (j > high || arr[i] <=arr[j])){
+                tempArray[k] = arr[i];
+                i++;
+            } else {
+                tempArray[k] = arr[j];
+                j++;
+            }
+        }
+
+
+        System.out.println(Arrays.toString(tempArray));
+        System.out.println();
+        for(int t = 0; t < tempArray.length; t++){
+            arr[low] = tempArray[t];
+            low++;
+        }
+    }
+
+}
