@@ -1,0 +1,35 @@
+public class EvalPostFix {
+    public static void main(String[] args) {
+        String str = "1 2 3 * +";
+        double k = new EvalPostFix().evaluate(str);
+        System.out.println(k);
+    }
+
+    public double evaluate(String postfix){
+        Stack<Integer> stack = new Stack<>();
+        for(String token : postfix.split(" ")){
+            if(token.chars().allMatch(Character::isDigit)){
+                stack.push(Integer.parseInt(token));
+            } else if(token.equals("/")){
+                int o1 = stack.pop();
+                int o2 = stack.pop();
+                stack.push(o2/o1);
+            } else if(token.equals("*")){
+                int o1 = stack.pop();
+                int o2 = stack.pop();
+                stack.push(o1*o2);
+            } else if(token.equals("+")){
+                int o1 = stack.pop();
+                int o2 = stack.pop();
+                stack.push(o1+o2);
+            } else if(token.equals("-")){
+                int o1 = stack.pop();
+                int o2 = stack.pop();
+                stack.push(o2-o1);
+            }
+        }
+
+        return stack.pop();
+
+    }
+}
