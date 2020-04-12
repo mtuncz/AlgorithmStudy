@@ -1,0 +1,130 @@
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.StringTokenizer;
+
+public class QS {
+    public static void main(String[] args) {
+        FastScanner sc = new FastScanner(System.in);
+
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for(int i = 0; i < n; i++){
+            arr[i] = sc.nextInt();
+        }
+
+        randomizedQuickSort(arr, 0, n-1);
+        for(int i = 0; i < n; i++){
+            System.out.print(arr[i] + " ");
+        }
+
+    }
+
+    public static int[] partition3(int[] arr, int l, int r){
+        int x = arr[l];
+        int m1 = l;
+        int m2 = r;
+        int i = l + 1;
+
+        while(i <= m2){
+            if(arr[i] < x){
+                m1++;
+                int temp = arr[i];
+                arr[i] = arr[m1];
+                arr[m1] = temp;
+                i++;
+            } else if(arr[i] > x){
+                int temp = arr[i];
+                arr[i] = arr[m2];
+                arr[m2] = temp;
+                m2--;
+            } else {
+                i++;
+            }
+        }
+
+        int temp = arr[l];
+        arr[l] = arr[m1];
+        arr[m1] = temp;
+        return new int[]{m1,m2};
+    }
+
+    public static void quickSort(int[] arr, int l, int r){
+        if(l < r) {
+
+
+            int m = partition(arr, l, r);
+            quickSort(arr, l, m - 1);
+            quickSort(arr, m + 1, r);
+        }
+
+
+    }
+
+    public static void randomizedQuickSort(int[] arr, int l, int r){
+        Random rand = new Random();
+        if(l >= r){
+            return;
+        }
+
+        int k = rand.nextInt(r-l+1) + l;
+        int temp = arr[l];
+        arr[l] = arr[k];
+        arr[k] = temp;
+
+        int [] m = partition3(arr,l,r);
+        randomizedQuickSort(arr,l,m[0]-1);
+        randomizedQuickSort(arr,m[1]+1, r);
+
+    }
+
+    public static int partition(int[] arr, int l, int r){
+        int pivot = arr[l];
+        int j = l;
+        for(int i = l+1; i <= r; i++){
+            if(arr[i] <= pivot){
+                j++;
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+
+        int temp = arr[l];
+        arr[l] = arr[j];
+        arr[j] = temp;
+
+        return j;
+
+    }
+
+    static class FastScanner{
+        BufferedReader br;
+        StringTokenizer st;
+
+        FastScanner(InputStream stream){
+            try {
+                br = new BufferedReader(new InputStreamReader(stream));
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        String next(){
+            while(st == null || !st.hasMoreTokens()){
+                try{
+                    st = new StringTokenizer(br.readLine());
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+            return st.nextToken();
+        }
+
+        int nextInt(){
+            return Integer.parseInt(next());
+        }
+    }
+}
