@@ -1,0 +1,118 @@
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class NumberOfInversions {
+    public static void main(String[] args) {
+        FastScanner scanner = new FastScanner(System.in);
+        int n = scanner.nextInt();
+        int[] arr = new int[n];
+        for(int i = 0; i < n; i++){
+            arr[i] = scanner.nextInt();
+        }
+        System.out.println(mergeSort(arr));
+        System.out.println(Arrays.toString(arr));
+    }
+
+
+    public static long mergeSort(int[] arr){
+        return mergeSort(arr, 0, arr.length-1);
+    }
+
+    public static long mergeSort(int[] arr, int l, int r){
+        long numberOfInversions = 0 ;
+        if(l < r){
+            int mid = ((r-l)/2) + l;
+
+            numberOfInversions+= mergeSort(arr, l, mid);
+            numberOfInversions+= mergeSort(arr, mid+1, r);
+            numberOfInversions+= merge(arr, l, mid, r);
+        }
+        return numberOfInversions;
+
+    }
+
+    public static long merge(int[] arr, int l, int mid, int r){
+        long numberOfInversions = 0;
+
+        // find the sizes of the two subarrays to be merged
+        int n1 = mid-l+1;
+        int n2 = r-mid;
+
+        //create temp arrays
+        int L[] = Arrays.copyOfRange(arr,l,mid+1);
+        int R[] = Arrays.copyOfRange(arr, mid+1, r+1);
+
+        //merge the temp arrays
+        //intial indexes of first and second arrays
+        int i = 0, j=0;
+
+        int k = l;
+
+        while(i<n1 && j<n2){
+            if(L[i] <= R[j]){
+                arr[k] = L[i];
+                i++;
+            } else {
+                numberOfInversions+= n1-i;
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+
+        //copy remainign elements of L[] if any
+        while(i < n1){
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
+
+        //copy remaining of R[] if any
+        while(j < n2){
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
+
+        return numberOfInversions;
+
+    }
+
+
+
+    static class FastScanner{
+        BufferedReader br;
+        StringTokenizer st;
+
+        public FastScanner(InputStream stream){
+            try {
+                br = new BufferedReader(new InputStreamReader(stream));
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        public String next(){
+            while(st == null || !st.hasMoreTokens()) {
+                try {
+                    st = new StringTokenizer(br.readLine());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            return st.nextToken();
+        }
+
+        public int nextInt(){
+            return Integer.parseInt(next());
+        }
+
+
+    }
+
+}
