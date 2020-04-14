@@ -1,0 +1,91 @@
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.StringTokenizer;
+
+public class PrimitiveCalc {
+    public static void main(String[] args) {
+        FastScanner sc = new FastScanner(System.in);
+        int n = sc.nextInt();
+        primitive(n);
+    }
+
+    public static void primitive(int number){
+        ArrayList<Integer> minOpr = new ArrayList<>();
+        ArrayList<Integer> ops = new ArrayList<>();
+        minOpr.add(0);
+        minOpr.add(0);
+        ops.add(0);
+        ops.add(1);
+
+
+        for(int i = 2; i <= number; i++){
+            minOpr.add(minOpr.get(i-1)+1);
+            ops.add(1);
+
+            if(i % 2 == 0){
+                if(minOpr.get(i/2) + 1 <= minOpr.get(i)){
+                    minOpr.set(i, minOpr.get(i/2)+1);
+                    ops.set(i, 2);
+                }
+
+            }
+
+            if(i%3 == 0){
+                if(minOpr.get(i/3) +1 <= minOpr.get(i)){
+                    minOpr.set(i, minOpr.get(i/3)+1);
+                    ops.set(i, 3);
+                }
+
+            }
+        }
+        System.out.println(minOpr.get(number));
+
+        ArrayList<Integer> sequence = new ArrayList<>();
+        while(number >= 1) {
+            sequence.add(number);
+            if(ops.get(number) == 2 || ops.get(number) == 3){
+                number /= ops.get(number);
+            } else {
+                number--;
+            }
+        }
+
+
+        Collections.reverse(sequence);
+        System.out.println(sequence.toString());
+
+    }
+
+
+
+    static class FastScanner{
+        BufferedReader br;
+        StringTokenizer st;
+
+        public FastScanner(InputStream stream){
+            try {
+                br = new BufferedReader(new InputStreamReader(stream));
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        String next(){
+            while(st == null || !st.hasMoreTokens()){
+                try{
+                    st = new StringTokenizer(br.readLine());
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+            return st.nextToken();
+        }
+
+        int nextInt(){
+            return Integer.parseInt(next());
+        }
+    }
+}
