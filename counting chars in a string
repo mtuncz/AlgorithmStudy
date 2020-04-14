@@ -1,0 +1,77 @@
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class CountingCharactersInAString {
+    public static void main(String[] args) {
+        FastScanner sc = new FastScanner(System.in);
+
+        String s = sc.next();
+        System.out.println(countChars(s).toString());
+    }
+
+    public static Set<Character> characterSet(String s){
+        Set<Character> characters = new HashSet<>();
+        for(int i = 0; i < s.length(); i++){
+            if(!characters.contains(s.charAt(i)) && Character.isLetter(s.charAt(i))){
+                characters.add(s.charAt(i));
+            }
+        }
+
+
+        return characters;
+    }
+
+    public static HashMap<Character, Integer> countChars(String s){
+        Set<Character> characters = characterSet(s);
+        HashMap<Character, Integer> map = new HashMap<>();
+        for(Character curr : characters){
+            int count = 0;
+            for(int i = 0; i < s.length(); i++){
+                if(s.charAt(i) == curr){
+                    count++;
+                }
+                if(map.get(curr) == null){
+                    map.put(curr, 0);
+                }
+                map.put(curr, count);
+            }
+
+
+        }
+
+        return map;
+
+    }
+
+    static class FastScanner{
+        BufferedReader br;
+        StringTokenizer st;
+        StringBuilder sb;
+
+        public FastScanner(InputStream stream){
+            try{
+                br = new BufferedReader(new InputStreamReader(stream));
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        String next(){
+            while(sb == null){
+                try{
+                    sb = new StringBuilder(br.readLine());
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            return sb.toString();
+        }
+
+        int nextInt(){
+            return Integer.parseInt(next());
+        }
+    }
+}
